@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="AustinFranks.ModifyProductsController"
+            prefHeight="400.0" prefWidth="600.0">
+    <Button layoutX="184.0" layoutY="14.0" mnemonicParsing="false" text="Cancel"/>
+    <Button layoutX="101.0" layoutY="14.0" mnemonicParsing="false" text="Add"/>
+    <Button layoutX="284.0" layoutY="14.0" mnemonicParsing="false" text="Save"/>
+    <Button layoutX="372.0" layoutY="14.0" mnemonicParsing="false" text="Search"/>
+    <Button layoutX="462.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="78.0" text="Delete"/>
+    <TextField fx:id="productId" layoutX="136.0" layoutY="144.0"/>
+    <TextField fx:id="name" layoutX="136.0" layoutY="196.0"/>
+    <TextField fx:id="inventoryLevel" layoutX="136.0" layoutY="252.0"/>
+    <TextField fx:id="price" layoutX="479.0" layoutY="146.0"/>
+    <TextField fx:id="max" layoutX="479.0" layoutY="198.0"/>
+    <TextField fx:id="min" layoutX="483.0" layoutY="254.0"/>
+    <Label layoutX="35.0" layoutY="148.0" text="ID"/>
+    <Label layoutX="35.0" layoutY="200.0" text="Name"/>
+    <Label layoutX="35.0" layoutY="256.0" text="Inventory Level"/>
+    <Label layoutX="384.0" layoutY="150.0" text="Price"/>
+    <Label layoutX="384.0" layoutY="202.0" text="Max"/>
+    <Label layoutX="384.0" layoutY="258.0" text="Min"/>
+    <ListView fx:id="relatedPartsList" layoutX="35.0" layoutY="297.0" prefHeight="200.0" prefWidth="597.0"/>
+
+</AnchorPane>
