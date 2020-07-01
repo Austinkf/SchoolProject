@@ -8,6 +8,7 @@ import javafx.scene.control.TreeTableColumn;
 import javafx.stage.Stage;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class MainSceneController
 {
@@ -20,11 +21,15 @@ public class MainSceneController
     public TextField searchField;
     public TreeTableColumn treeView;
     
-    public void openAddScene( ActionEvent event )
+    Map<String,Object> props = new HashMap<String,Object>();
+    
+    public void openAddProductscene(ActionEvent event )
     {
+        props.put("height", 768);
+        props.put("width", 1200);
         try
         {
-            StageService.showScene("AddParts.fxml",new HashMap<String,Object>(), true);
+            StageService.showScene("AddProducts.fxml", props, false);
         }
         catch( Exception e )
         {
@@ -32,11 +37,41 @@ public class MainSceneController
         }
     }
 
-    public void openModifyScene( ActionEvent event )
+    public void openModifyProductScene(ActionEvent event )
     {
+        props.put("height", 768);
+        props.put("width", 1200);
         try
         {
-            StageService.showScene("ModifyParts.fxml",new HashMap<String,Object>(), true);
+            StageService.showScene("ModifyProducts.fxml", props, false);
+        }
+        catch( Exception e )
+        {
+            System.out.println("Exception: " + e.getMessage() );
+        }
+    }
+    
+    public void openAddPartScene(ActionEvent event )
+    {
+        props.put("height", 500);
+        props.put("width", 450);
+        try
+        {
+            StageService.showScene("AddParts.fxml", props, true);
+        }
+        catch( Exception e )
+        {
+            System.out.println("Exception: " + e.getMessage() );
+        }
+    }
+    
+    public void openModifyPartScene(ActionEvent event )
+    {
+        props.put("height", 500);
+        props.put("width", 450);
+        try
+        {
+            StageService.showScene("ModifyParts.fxml", props, true);
         }
         catch( Exception e )
         {

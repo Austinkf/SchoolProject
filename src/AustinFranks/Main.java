@@ -12,7 +12,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         VolatileMemoryService.setPrimaryStage(primaryStage);
         Parent root = FXMLLoader.load(getClass().getResource("MainScene.fxml"));
-        Scene scene = new Scene(root, 1021, 635);
+        Scene scene = new Scene(root, 1200, 768);
         primaryStage.setTitle("Hello World");
         primaryStage.setScene( scene );
         primaryStage.show();

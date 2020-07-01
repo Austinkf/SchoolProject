@@ -6,7 +6,6 @@
 
 <SplitPane fx:id="mainSceneView" dividerPositions="0.0995260663507109" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="635.0" prefWidth="1021.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AustinFranks.MainSceneController">
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-        <Button fx:id="exitApplicationButton" layoutX="932.0" layoutY="20.0" mnemonicParsing="false" onAction="#closeApplication" text="Exit" />
         <Label alignment="CENTER" layoutX="312.0" layoutY="12.0" prefHeight="41.0" prefWidth="396.0" text="Best Title Inventory">
             <font>
               <Font name="System Bold" size="24.0" />
@@ -14,16 +13,32 @@
         </Label>
     </AnchorPane>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-        <Button fx:id="addButton" layoutX="109.0" layoutY="169.0" mnemonicParsing="false" onAction="#openAddScene" text="Add" />
-        <Button fx:id="modifyButton" layoutX="147.0" layoutY="169.0" mnemonicParsing="false" onAction="#openModifyScene" text="Modify" />
-        <Button fx:id="deleteButton" layoutX="201.0" layoutY="169.0" mnemonicParsing="false" text="Delete" />
-        <Button fx:id="searchButton" layoutX="304.0" layoutY="73.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="63.0" text="Search" />
-        <TextField fx:id="searchField" layoutX="383.0" layoutY="73.0" prefHeight="25.0" prefWidth="333.0" />
-        <TreeTableView layoutX="109.0" layoutY="194.0" prefHeight="234.0" prefWidth="775.0">
+        <Button fx:id="partsAddButton" layoutX="164.0" layoutY="397.0" mnemonicParsing="false" onAction="#openAddProductscene" prefHeight="41.0" prefWidth="100.0" text="Add" />
+        <Button fx:id="partsModifyButton" layoutX="273.0" layoutY="397.0" mnemonicParsing="false" onAction="#openModifyProductScene" prefHeight="41.0" prefWidth="100.0" text="Modify" />
+        <Button fx:id="partsDeleteButton" layoutX="382.0" layoutY="397.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="100.0" text="Delete" />
+        <Button fx:id="partSearchButton" layoutX="260.0" layoutY="109.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="63.0" text="Search" />
+        <TextField fx:id="searchField" layoutX="339.0" layoutY="109.0" prefHeight="25.0" prefWidth="164.0" />
+        <TreeTableView fx:id="partsList" layoutX="34.0" layoutY="152.0" prefHeight="234.0" prefWidth="469.0">
             <columns>
-                <TreeTableColumn fx:id="treeView" prefWidth="75.0" text="C1" />
-                <TreeTableColumn prefWidth="75.0" text="C2" />
+                <TreeTableColumn fx:id="treeView" prefWidth="100.0" text="Part ID" />
+                <TreeTableColumn prefWidth="110.0" text="Part Name" />
+            <TreeTableColumn prefWidth="129.0" text="Inventory Level" />
+            <TreeTableColumn prefWidth="129.0" text="Price/Cost per Unit" />
             </columns>
         </TreeTableView>
+        <Button fx:id="exitApplicationButton" layoutX="814.0" layoutY="512.0" mnemonicParsing="false" onAction="#closeApplication" prefHeight="41.0" prefWidth="115.0" text="Exit" />
+      <Button layoutX="594.0" layoutY="109.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="63.0" text="Search" />
+      <TextField fx:id="productsSearchButton" layoutX="665.0" layoutY="109.0" prefHeight="25.0" prefWidth="164.0" />
+      <Button fx:id="addProductButton" layoutX="591.0" layoutY="397.0" mnemonicParsing="false" onAction="#openAddPartScene" prefHeight="41.0" prefWidth="100.0" text="Add" />
+      <Button fx:id="modifyProductButton" layoutX="697.0" layoutY="397.0" mnemonicParsing="false" onAction="#openModifyPartScene" prefHeight="41.0" prefWidth="100.0" text="Modify" />
+      <Button fx:id="deleteProductButton" layoutX="805.0" layoutY="397.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="100.0" text="Delete" />
+      <TableView layoutX="536.0" layoutY="155.0" prefHeight="234.0" prefWidth="469.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="AustinFranks.Product ID" />
+          <TableColumn prefWidth="149.0" text="AustinFranks.Product Name" />
+            <TableColumn minWidth="1.0" prefWidth="147.0" text="Inventory Level" />
+            <TableColumn minWidth="0.0" prefWidth="97.0" text="Price per Unit" />
+        </columns>
+      </TableView>
     </AnchorPane>
 </SplitPane>

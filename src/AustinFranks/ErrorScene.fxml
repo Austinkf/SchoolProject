@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="AustinFranks.ErrorSceneController">
+    <Label layoutX="77.0" layoutY="69.0" prefHeight="28.0" prefWidth="73.0" text="Errors:">
+        <font>
+          <Font size="24.0"/>
+        </font>
+    </Label>
+    <ListView fx:id="errorList" layoutX="150.0" layoutY="69.0" prefHeight="245.0" prefWidth="340.0"/>
+</AnchorPane>
