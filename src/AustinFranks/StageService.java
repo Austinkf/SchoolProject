@@ -11,8 +11,8 @@ import java.util.Map;
 
 public class StageService
 {
-    private static final int DEFAULT_HEIGHT = 600;
-    private static final int DEFAULT_WIDTH  = 800;
+    private static final int DEFAULT_HEIGHT = 768;
+    private static final int DEFAULT_WIDTH  = 1200;
 
     private static SceneBuilder builder     = null;
 

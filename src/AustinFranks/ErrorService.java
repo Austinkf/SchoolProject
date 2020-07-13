@@ -8,6 +8,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.nio.charset.Charset;
+import java.nio.charset.spi.CharsetProvider;
 import java.util.*;
 
 public class ErrorService
@@ -35,6 +37,7 @@ public class ErrorService
     public void openScene()
     {
         ErrorService.openErrorScene( errorList );
+        errorList = new ArrayList<String>();
     }
     
     private static Map<String,Object> props = new HashMap<String,Object>();
@@ -82,12 +85,30 @@ public class ErrorService
                 
                 if( primaryStage != null )
                 {
-                    ErrorSceneController controller = new ErrorSceneController( errorList );
-                    FXMLLoader load = new FXMLLoader( new URL("/" + resourceFile) );
+                    //CharsetProvider provider = new
+                    //ErrorSceneController controller = new ErrorSceneController();
+                    FXMLLoader load = new FXMLLoader( new ErrorService().getClass().getResource(resourceFile) );
+                    
+                    //System.out.println("URL Location: " + load.getLocation());
+                    
                     load.setControllerFactory( c -> {
-                        return new ErrorSceneController(errorList);
+                        return new ErrorSceneController();
                     });
+                    
+                    
+                    
+                    
+                    //load.setController(controller);
                     Parent root = load.load();//FXMLLoader.load(controller.getClass().getResource(resourceFile) );
+                    ErrorSceneController controller = load.getController();
+                    if( controller != null )
+                    {
+                        controller.setErrorList(errorList);
+                    }
+                    else
+                    {
+                        System.out.println("Controller is null");
+                    }
                     
                     int width = 0;
                     int height = 0;
@@ -114,11 +135,17 @@ public class ErrorService
                             stage.initModality(Modality.APPLICATION_MODAL);
                             stage.setScene(scene);
                             VolatileMemoryService.setActiveStage(stage);
-                            stage.showAndWait();
+                            //controller.setErrorList(errorList);
+                            stage.show();
                         }
                     }
                 }
             }
+        }
+        catch( NullPointerException ex )
+        {
+            System.out.println("NullPointerException: " + ex.getMessage());
+            printStacktrace(ex);
         }
         catch( Exception e )
         {
@@ -127,7 +154,7 @@ public class ErrorService
         }
     }
     
-    private static void printStacktrace( Exception e )
+    public static void printStacktrace( Exception e )
     {
         try
         {
