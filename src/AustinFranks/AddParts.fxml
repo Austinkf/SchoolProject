@@ -8,14 +8,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="447.0" prefWidth="468.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AustinFranks.AddPartsController">
+<AnchorPane prefHeight="447.0" prefWidth="468.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AustinFranks.AddPartsController">
    <RadioButton fx:id="inHouse" layoutX="135.0" layoutY="42.0" mnemonicParsing="false" onAction="#handleToggleChange" selected="true" text="In-House">
       <toggleGroup>
          <ToggleGroup fx:id="inventory_sourced" />
       </toggleGroup>
    </RadioButton>
    <RadioButton fx:id="outsourced" layoutX="234.0" layoutY="42.0" mnemonicParsing="false" onAction="#handleToggleChange" text="Outsourced" toggleGroup="$inventory_sourced" />
-   <Button fx:id="save" layoutX="216.0" layoutY="382.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="86.0" text="Save" />
+   <Button fx:id="save" layoutX="216.0" layoutY="382.0" mnemonicParsing="false" onAction="#createPart" prefHeight="35.0" prefWidth="86.0" text="Save" />
    <Button fx:id="cancel" layoutX="325.0" layoutY="382.0" mnemonicParsing="false" onAction="#showMainScene" prefHeight="35.0" prefWidth="86.0" text="Cancel" />
    <TextField fx:id="id" disable="true" editable="false" layoutX="184.0" layoutY="115.0" promptText="Auto Gen - Disabled" />
    <TextField fx:id="name" layoutX="184.0" layoutY="152.0" promptText="Part Name" />

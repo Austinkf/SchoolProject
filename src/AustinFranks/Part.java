@@ -63,6 +63,11 @@ public abstract class Part
     {
         return this.name;
     }
+
+    public double getPrice()
+    {
+        return this.price;
+    }
     
     public int getStock()
     {
@@ -76,7 +81,6 @@ public abstract class Part
     
     public int getMax()
     {
-        return this.min;
+        return this.max;
     }
-    
 }

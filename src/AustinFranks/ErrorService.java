@@ -170,4 +170,9 @@ public class ErrorService
             System.out.println("Exception: " + ex.getMessage());
         }
     }
+
+    public static void print( String errorString )
+    {
+        System.out.println(errorString);
+    }
 }

@@ -18,4 +18,14 @@ public class InHouse extends Part
     {
         return this.machineId;
     }
+
+    public static Part getTestPart()
+    {
+        InHouse testPart = new InHouse(Inventory.getPartNextId(),"MFP",249.99, 3, 1,5);
+        testPart.setMachineId(52244);
+
+        Inventory.addPart(testPart);
+
+        return testPart;
+    }
 }

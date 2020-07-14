@@ -7,13 +7,13 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="765.0" prefWidth="1164.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AustinFranks.AddProductsController">
-    <Button layoutX="949.0" layoutY="679.0" mnemonicParsing="false" onAction="#openMainScene" prefHeight="40.0" prefWidth="98.0" text="Cancel" />
-    <Button fx:id="addProduct" layoutX="949.0" layoutY="317.0" mnemonicParsing="false" onAction="#createProduct" prefHeight="40.0" prefWidth="98.0" text="Add" />
-    <Button layoutX="836.0" layoutY="679.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="98.0" text="Save" />
-    <Button layoutX="663.0" layoutY="49.0" mnemonicParsing="false" text="Search" />
-    <Button layoutX="949.0" layoutY="629.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="98.0" text="Delete" />
-    <TextField fx:id="productId" layoutX="136.0" layoutY="144.0" />
+<AnchorPane prefHeight="686.0" prefWidth="1153.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AustinFranks.AddProductsController">
+    <Button layoutX="949.0" layoutY="601.0" mnemonicParsing="false" onAction="#openMainScene" prefHeight="40.0" prefWidth="98.0" text="Cancel" />
+    <Button fx:id="addProduct" layoutX="949.0" layoutY="277.0" mnemonicParsing="false" onAction="#createProduct" prefHeight="40.0" prefWidth="98.0" text="Add" />
+    <Button layoutX="841.0" layoutY="601.0" mnemonicParsing="false" onAction="#createProduct" prefHeight="40.0" prefWidth="98.0" text="Save" />
+    <Button layoutX="663.0" layoutY="37.0" mnemonicParsing="false" text="Search" />
+    <Button layoutX="949.0" layoutY="548.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="98.0" text="Delete" />
+    <TextField fx:id="productId" disable="true" editable="false" layoutX="136.0" layoutY="144.0" promptText="Auto Gen - Disabled" />
     <TextField fx:id="name" layoutX="136.0" layoutY="177.0" />
     <TextField fx:id="inventoryLevel" layoutX="136.0" layoutY="219.0" />
     <TextField fx:id="price" layoutX="136.0" layoutY="256.0" />
@@ -25,21 +25,21 @@
     <Label layoutX="41.0" layoutY="260.0" text="Price" />
     <Label layoutX="41.0" layoutY="312.0" text="Max" />
     <Label layoutX="225.0" layoutY="312.0" text="Min" />
-   <TableView layoutX="498.0" layoutY="98.0" prefHeight="200.0" prefWidth="557.0">
+   <TableView fx:id="partsSearchView" layoutX="498.0" layoutY="69.0" prefHeight="200.0" prefWidth="557.0">
      <columns>
-       <TableColumn prefWidth="124.0" text="Part ID" />
-       <TableColumn prefWidth="104.0" text="Part Name" />
-         <TableColumn minWidth="0.0" prefWidth="149.0" text="Inventory Level" />
-         <TableColumn minWidth="0.0" prefWidth="130.0" text="Price per Unit" />
+       <TableColumn fx:id="partId" prefWidth="124.0" text="Part ID" />
+       <TableColumn fx:id="partName" prefWidth="104.0" text="Part Name" />
+         <TableColumn fx:id="partInvLevel" minWidth="0.0" prefWidth="149.0" text="Inventory Level" />
+         <TableColumn fx:id="partPPU" minWidth="0.0" prefWidth="130.0" text="Price per Unit" />
      </columns>
    </TableView>
-   <TextField fx:id="productSearch" layoutX="743.0" layoutY="49.0" prefHeight="25.0" prefWidth="224.0" />
-   <TableView fx:id="productList" layoutX="498.0" layoutY="405.0" prefHeight="200.0" prefWidth="557.0">
+   <TextField fx:id="partSearch" layoutX="745.0" layoutY="37.0" prefHeight="25.0" prefWidth="224.0" />
+   <TableView fx:id="relatedPartsView" layoutX="498.0" layoutY="333.0" prefHeight="200.0" prefWidth="557.0">
      <columns>
-       <TableColumn fx:id="tvProdId" prefWidth="135.0" text="Part Id" />
-       <TableColumn fx:id="tvProdName" prefWidth="130.0" text="Part Name" />
-         <TableColumn fx:id="tvProdIL" prefWidth="135.0" text="Inventory Level" />
-         <TableColumn fx:id="tvPPU" prefWidth="156.0" text="Price per Unit" />
+       <TableColumn fx:id="aPartId" prefWidth="135.0" text="Part Id" />
+       <TableColumn fx:id="aPartName" prefWidth="130.0" text="Part Name" />
+         <TableColumn fx:id="aPartInvLevel" prefWidth="135.0" text="Inventory Level" />
+         <TableColumn fx:id="aPartPPU" prefWidth="156.0" text="Price per Unit" />
      </columns>
    </TableView>
 </AnchorPane>

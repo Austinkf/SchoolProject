@@ -18,4 +18,13 @@ public class Outsourced extends Part
     {
         return this.companyName;
     }
+
+    public static Part getTestPart()
+    {
+        Outsourced testPart = new Outsourced(Inventory.getPartNextId(),"SR71",123.66, 5, 3,7);
+        testPart.setCompanyName("Terminal C");
+        Inventory.addPart(testPart);
+
+        return testPart;
+    }
 }

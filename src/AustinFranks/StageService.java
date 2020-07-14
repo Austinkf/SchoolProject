@@ -16,6 +16,11 @@ public class StageService
 
     private static SceneBuilder builder     = null;
 
+    public StageService()
+    {
+
+    }
+
     private StageService( String resourceFile, Map<String,Object> properties, Boolean modal )
     {
         builder = new SceneBuilder(resourceFile, properties, modal);

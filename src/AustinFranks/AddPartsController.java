@@ -85,7 +85,7 @@ public class AddPartsController
             {
                 if( min.getText() != null && max.getText() != null )
                 {
-                    if( Integer.parseInt(inventoryLevel.getText()) >= Integer.parseInt(min.getText()) && Integer.parseInt(inventoryLevel.getText()) <= Integer.parseInt(max.getText()) )
+                    if( Integer.parseInt(inventoryLevel.getText()) < Integer.parseInt(min.getText()) || Integer.parseInt(inventoryLevel.getText()) > Integer.parseInt(max.getText()) )
                     {
                         errorService.addError("Inventory Level cannot excede min and max");
                     }
@@ -118,7 +118,10 @@ public class AddPartsController
                  
                 Inventory.addPart(newPart);
                 //addProductToScreen( newProduct );
+
                 System.out.println("Product Added");
+                MainSceneController.resetMainScene();
+                showMainScene( new ActionEvent() );
             }
             else
             {

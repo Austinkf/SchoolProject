@@ -11,7 +11,10 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         VolatileMemoryService.setPrimaryStage(primaryStage);
-        Parent root = FXMLLoader.load(getClass().getResource("MainScene.fxml"));
+        FXMLLoader load = new FXMLLoader( getClass().getResource("MainScene.fxml") );
+
+        Parent root = load.load();
+        VolatileMemoryService.setMainController(load.getController());
         Scene scene = new Scene(root, 1200, 768);
         primaryStage.setTitle("Hello World");
         primaryStage.setScene( scene );

@@ -8,6 +8,7 @@ public class VolatileMemoryService
 {
     private static volatile Stage primaryStage = null;
     private static volatile Stage activeStage = null;
+    private static volatile MainSceneController mainController = null;
 
     public static synchronized void setPrimaryStage( Stage stage )
     {
@@ -27,5 +28,15 @@ public class VolatileMemoryService
     public static synchronized Stage getActiveStage()
     {
         return activeStage;
+    }
+
+    public static synchronized void setMainController( MainSceneController controller )
+    {
+        mainController = controller;
+    }
+
+    public static synchronized MainSceneController getMainController()
+    {
+        return mainController;
     }
 }
