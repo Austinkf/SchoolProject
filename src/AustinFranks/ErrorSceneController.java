@@ -20,7 +20,6 @@ public class ErrorSceneController
         {
             errorArr = FXCollections.observableArrayList();
             this.errorList.setItems(errorArr);
-            //this.errorList.getItems().setAll(errorArr);
             
         }
         catch( Exception e )

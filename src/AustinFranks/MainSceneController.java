@@ -14,6 +14,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MainSceneController
@@ -43,7 +44,9 @@ public class MainSceneController
     public TableColumn partInvLevel     = new TableColumn();
     public TableColumn partPPU          = new TableColumn();
     public TableView   productTableView = new TableView();
-
+    public TextField partSearch;
+    public TextField productSearch;
+    
     Map<String,Object>      props            = new HashMap<String,Object>();
     ObservableList<Part>    partsTableList   = FXCollections.observableArrayList();
     ObservableList<Product> productTableList = FXCollections.observableArrayList();
@@ -63,14 +66,14 @@ public class MainSceneController
         productInvLevel.setCellValueFactory( new PropertyValueFactory<>("stock") );
         productPPU.setCellValueFactory( new PropertyValueFactory<>("price") );
 
-        System.out.println(partsTableList.size());
+        //System.out.println(partsTableList.size());
         refreshListViews();
     }
 
     public void openAddProductscene(ActionEvent event )
     {
-        props.put("height", 768);
-        props.put("width", 1200);
+        props.put("height", 633);
+        props.put("width", 1020);
         try
         {
             StageService.showScene("AddProducts.fxml", props, false);
@@ -83,11 +86,32 @@ public class MainSceneController
 
     public void openModifyProductScene(ActionEvent event )
     {
-        props.put("height", 768);
-        props.put("width", 1200);
+        //props.put("height", 768);
+        //props.put("width", 1200);
         try
         {
-            StageService.showScene("ModifyProducts.fxml", props, false);
+            Product prod  = (Product)productTableView.getSelectionModel().getSelectedItem();
+            if( prod != null )
+            {
+                Integer index = productTableView.getSelectionModel().getSelectedIndex();
+    
+                FXMLLoader load = new FXMLLoader(getClass().getResource("ModifyProducts.fxml") );
+    
+                load.setControllerFactory(c -> {
+                    return new ModifyProductsController(prod, index);
+                });
+    
+                Parent root = load.load();
+                Scene scene = new Scene(root, 1020, 633);
+                Stage stage = new Stage();
+    
+                stage.initOwner(VolatileMemoryService.getPrimaryStage());
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.setScene(scene);
+                VolatileMemoryService.setActiveStage(stage);
+
+                stage.show();
+            }
         }
         catch( Exception e )
         {
@@ -118,7 +142,7 @@ public class MainSceneController
             InHouse    ihPart = null;
             Outsourced osPart = null;
             Integer    index  = partsList.getSelectionModel().getSelectedIndex();
-            //System.out.println("Class: " + partsList.getSelectionModel().getSelectedItem().getClass().getSimpleName());
+            
             if( partsList.getSelectionModel().getSelectedItem().getClass().getSimpleName().equals("InHouse") )
             {
                 ihPart = (InHouse)partsList.getSelectionModel().getSelectedItem();
@@ -127,12 +151,11 @@ public class MainSceneController
             {
                 osPart = (Outsourced)partsList.getSelectionModel().getSelectedItem();
             }
-
-            //StageService.showScene("ModifyParts.fxml", props, true);
-            FXMLLoader load = new FXMLLoader(getClass().getResource("ModifyParts.fxml") );
-            //InHouse part = (InHouse) partsList.getSelectionModel().getSelectedItem();
-            InHouse finalIhPart = ihPart;
+            
+            FXMLLoader load        = new FXMLLoader(getClass().getResource("ModifyParts.fxml") );
+            InHouse    finalIhPart = ihPart;
             Outsourced finalOsPart = osPart;
+            
             load.setControllerFactory(c -> {
                 return new ModifyPartsController(finalIhPart, finalOsPart, index);
             });
@@ -145,9 +168,8 @@ public class MainSceneController
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(scene);
             VolatileMemoryService.setActiveStage(stage);
-            //controller.setErrorList(errorList);
+
             stage.show();
-            //Parent root = FXMLLoader.load( getClass().getResource(resourceFile) );
 
         }
         catch( Exception e )
@@ -167,9 +189,8 @@ public class MainSceneController
         partsTableList   = FXCollections.observableArrayList();
         productTableList = FXCollections.observableArrayList();
 
-        partsTableList.addAll(Inventory.getAllParts());
-        productTableList.addAll(Inventory.getAllProducts());
-        //System.out.println(partsTableList.size());
+        //partsTableList.addAll(Inventory.getAllParts());
+        //productTableList.addAll(Inventory.getAllProducts());
 
         partsList.getItems().setAll(partsTableList);
         productTableView.getItems().setAll(productTableList);
@@ -182,17 +203,100 @@ public class MainSceneController
             MainSceneController controller = VolatileMemoryService.getMainController();
             if( controller != null )
             {
-                System.out.println("If");
                 controller.refreshListViews();
-            }
-            else
-            {
-                System.out.println("Else");
             }
         }
         catch( Exception e )
         {
             ErrorService.print("Exception: " + e.getMessage());
+        }
+    }
+    
+    public void lookupPart( ActionEvent event )
+    {
+        try
+        {
+            if( !partSearch.getText().isEmpty() )
+            {
+                List<Part> tempList = Inventory.lookupPart(partSearch.getText() );
+                
+                if( tempList != null && tempList.size() > 0 )
+                {
+                    partsTableList = FXCollections.observableArrayList(tempList);
+                    partsList.getItems().setAll(partsTableList);
+                }
+            }
+        }
+        catch( Exception e )
+        {
+            ErrorService.openErrorScene(e.getMessage());
+        }
+    }
+    
+    public void lookupProduct( ActionEvent event )
+    {
+        try
+        {
+            if( !productSearch.getText().isEmpty() )
+            {
+                List<Product> tempList = Inventory.lookupProduct( productSearch.getText() );
+                
+                if( tempList != null && tempList.size() > 0 )
+                {
+                    productTableList = FXCollections.observableArrayList(tempList);
+                    productTableView.getItems().setAll(productTableList);
+                }
+            }
+        }
+        catch( Exception e )
+        {
+            ErrorService.openErrorScene(e.getMessage());
+        }
+    }
+    
+    public void deletePart( ActionEvent event )
+    {
+        try
+        {
+            Part part = (Part)partsList.getSelectionModel().getSelectedItem();
+            
+            if( part != null )
+            {
+                Boolean isDeleted =  Inventory.deletePart(part);
+                
+                if( isDeleted )
+                {
+                    partsTableList.remove(part);
+                    partsList.getItems().setAll(partsTableList);
+                }
+            }
+        }
+        catch( Exception e )
+        {
+            ErrorService.openErrorScene("Exception: " + e.getMessage());
+        }
+    }
+    
+    public void deleteProduct( ActionEvent event )
+    {
+        try
+        {
+            Product product = (Product) productTableView.getSelectionModel().getSelectedItem();
+            
+            if( product != null )
+            {
+                Boolean isDeleted = Inventory.deleteProduct(product);
+
+                if( isDeleted )
+                {
+                    productTableList.remove(product);
+                    productTableView.getItems().setAll(productTableList);
+                }
+            }
+        }
+        catch( Exception e )
+        {
+            ErrorService.openErrorScene("Exception: " + e.getMessage());
         }
     }
 }

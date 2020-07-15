@@ -38,6 +38,7 @@ public class ErrorService
     {
         ErrorService.openErrorScene( errorList );
         errorList = new ArrayList<String>();
+        isErrorSet = false;
     }
     
     private static Map<String,Object> props = new HashMap<String,Object>();
@@ -85,29 +86,17 @@ public class ErrorService
                 
                 if( primaryStage != null )
                 {
-                    //CharsetProvider provider = new
-                    //ErrorSceneController controller = new ErrorSceneController();
                     FXMLLoader load = new FXMLLoader( new ErrorService().getClass().getResource(resourceFile) );
-                    
-                    //System.out.println("URL Location: " + load.getLocation());
                     
                     load.setControllerFactory( c -> {
                         return new ErrorSceneController();
                     });
                     
-                    
-                    
-                    
-                    //load.setController(controller);
-                    Parent root = load.load();//FXMLLoader.load(controller.getClass().getResource(resourceFile) );
+                    Parent root = load.load();
                     ErrorSceneController controller = load.getController();
                     if( controller != null )
                     {
                         controller.setErrorList(errorList);
-                    }
-                    else
-                    {
-                        System.out.println("Controller is null");
                     }
                     
                     int width = 0;
@@ -134,8 +123,7 @@ public class ErrorService
                             stage.initOwner(primaryStage);
                             stage.initModality(Modality.APPLICATION_MODAL);
                             stage.setScene(scene);
-                            VolatileMemoryService.setActiveStage(stage);
-                            //controller.setErrorList(errorList);
+
                             stage.show();
                         }
                     }

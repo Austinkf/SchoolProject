@@ -15,8 +15,8 @@ public class Main extends Application {
 
         Parent root = load.load();
         VolatileMemoryService.setMainController(load.getController());
-        Scene scene = new Scene(root, 1200, 768);
-        primaryStage.setTitle("Hello World");
+        Scene scene = new Scene(root, 1020, 633);
+        primaryStage.setTitle("Inventory");
         primaryStage.setScene( scene );
         primaryStage.show();
     }

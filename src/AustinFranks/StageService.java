@@ -11,8 +11,8 @@ import java.util.Map;
 
 public class StageService
 {
-    private static final int DEFAULT_HEIGHT = 768;
-    private static final int DEFAULT_WIDTH  = 1200;
+    private static final int DEFAULT_HEIGHT = 633;
+    private static final int DEFAULT_WIDTH  = 1020;
 
     private static SceneBuilder builder     = null;
 
@@ -99,8 +99,6 @@ public class StageService
                             {
                                 Stage stage = new Stage();
 
-                                stage.initOwner(primaryStage);
-                                stage.initModality(Modality.APPLICATION_MODAL);
                                 stage.setScene(scene);
                                 VolatileMemoryService.setActiveStage(stage);
                                 stage.showAndWait();

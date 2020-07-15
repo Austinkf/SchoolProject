@@ -28,32 +28,7 @@ public class AddPartsController
     public TextField price;
     
     private ErrorService errorService = new ErrorService();
-    //Dou
-    /*
-    public AddPartsController()
-    {
-        init();
-    }
-    
-    private void init()
-    {
-        try
-        {
-            System.out.println("Trying Init");
-            max.textProperty().addListener( (c, newText, oldText) -> {
-                System.out.println("New Text: " + newText);
-                System.out.println("Old Text: " + oldText);
-            } );
-        }
-        catch( Exception e )
-        {
-            //ErrorService.openErrorScene(e.getMessage());
-            System.out.println("Exception: " + e.getMessage());
-            ErrorService.printStacktrace(e);
-        }
-        
-    }
-    */
+
     public void showMainScene( ActionEvent event )
     {
         Stage stage = VolatileMemoryService.getActiveStage();
@@ -62,7 +37,6 @@ public class AddPartsController
     
     public void createPart( ActionEvent event )
     {
-        System.out.println("Pressed");
         try
         {
             if( name.getText().isEmpty() )
@@ -117,10 +91,9 @@ public class AddPartsController
                  }
                  
                 Inventory.addPart(newPart);
-                //addProductToScreen( newProduct );
-
-                System.out.println("Product Added");
+                
                 MainSceneController.resetMainScene();
+                ErrorService.print("After main scene reset");
                 showMainScene( new ActionEvent() );
             }
             else
@@ -182,21 +155,28 @@ public class AddPartsController
                 {
                     newText = newText.replace("Numpad ", "");
                 }
-                System.out.println("New Text: " + newText);
+
                 if( newText.matches("[0-9]*") )
                 {
                     returnText = currentText;
                 }
                 else if( newText.toLowerCase().contains("backspace") )
                 {
-                    returnText = currentText.substring(0, currentText.length() );
+                    returnText = currentText.substring(0, currentText.length()-1 );
+                }
+                else if( newText.toLowerCase().contains("tab") )
+                {
+                    returnText = currentText;
                 }
                 else
                 {
                     returnText = "";
                 }
-                System.out.println("ReturnText: " + returnText);
+
                 tf.setText(returnText);
+                
+                if( tf.getText().length() > 0 )
+                    tf.positionCaret(returnText.length());
             }
         }
         catch( Exception e )

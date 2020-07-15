@@ -10,8 +10,6 @@ public class Inventory
 {
     private static ObservableList<Part>    allParts;
     private static ObservableList<Product> allProducts;
-    private static Map<Integer,Part>       allPartsMap;
-    private static Map<Integer,Product>    allProductsMap;
     
     private static int productNextId = 0;
     private static int partNextId    = 0;
@@ -21,9 +19,7 @@ public class Inventory
         try
         {
             allParts       = FXCollections.observableArrayList();
-            allProducts    = FXCollections.emptyObservableList();
-            allPartsMap    = new HashMap<Integer,Part>();
-            allProductsMap = new HashMap<Integer,Product>();
+            allProducts    = FXCollections.observableArrayList();
         }
         catch( Exception e )
         {
@@ -37,7 +33,6 @@ public class Inventory
         try
         {
             allParts.add( newPart );
-            allPartsMap.put( newPart.getId(), newPart );
             partNextId++;
         }
         catch( Exception e )
@@ -50,7 +45,6 @@ public class Inventory
     public static void addProduct( Product newProduct )
     {
         allProducts.add( newProduct );
-        allProductsMap.put( newProduct.getId(), newProduct );
         productNextId++;
     }
     
@@ -60,9 +54,16 @@ public class Inventory
         
         try
         {
-            if( allPartsMap.containsKey(id) )
+            if( allParts != null && allParts.size() > 0 )
             {
-                part = allPartsMap.get(id);
+                for( Part p : allParts )
+                {
+                    if( p.getId() == id )
+                    {
+                        part = p;
+                        break;
+                    }
+                }
             }
         }
         catch( Exception e )
@@ -79,9 +80,16 @@ public class Inventory
         
         try
         {
-            if( allProductsMap.containsKey(id) )
+            if( allProducts != null && allProducts.size() > 0 )
             {
-                product = allProductsMap.get(id);
+                for( Product prod : allProducts )
+                {
+                    if( prod.getId() == id )
+                    {
+                        product = prod;
+                        break;
+                    }
+                }
             }
         }
         catch( Exception e )
@@ -141,7 +149,6 @@ public class Inventory
         try
         {
             allParts.set(index, selectedPart);
-            allPartsMap.put(selectedPart.getId(),selectedPart);
         }
         catch( Exception e )
         {
@@ -154,7 +161,6 @@ public class Inventory
         try
         {
             allProducts.set(index, selectedProduct);
-            allProductsMap.put(selectedProduct.getId(),selectedProduct);
         }
         catch( Exception e )
         {
@@ -168,8 +174,7 @@ public class Inventory
 
         try
         {
-            allPartsMap.remove(part.getId());
-            allParts = FXCollections.observableArrayList(allPartsMap.values());
+            allParts.remove(part);
 
             isDelete = true;
         }
@@ -186,8 +191,7 @@ public class Inventory
 
         try
         {
-            allProductsMap.remove(product.getId());
-            allProducts = FXCollections.observableArrayList(allProductsMap.values());
+            allProducts.remove(product);
 
             isDelete = true;
         }

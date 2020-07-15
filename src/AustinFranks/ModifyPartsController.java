@@ -10,25 +10,25 @@ public class ModifyPartsController
 {
 
     public ToggleGroup inventory_sourced;
-    public Button save;
-    public Button cancel;
+    public Button      save;
+    public Button      cancel;
     public RadioButton inHouse;
     public RadioButton outsourced;
-    public TextField id;
-    public TextField name;
-    public TextField inventoryLevel;
-    public TextField price;
-    public TextField max;
-    public TextField min;
-    public Label companyNameLabel;
-    public Label machineIdLabel;
-    public TextField machineId;
-    public TextField companyName;
+    public TextField   id;
+    public TextField   name;
+    public TextField   inventoryLevel;
+    public TextField   price;
+    public TextField   max;
+    public TextField   min;
+    public Label       companyNameLabel;
+    public Label       machineIdLabel;
+    public TextField   machineId;
+    public TextField   companyName;
 
-    ErrorService errorService = new ErrorService();
-    InHouse    housePart   = null;
-    Outsourced sourcedPart = null;
-    Integer    index;
+    ErrorService       errorService = new ErrorService();
+    InHouse            housePart    = null;
+    Outsourced         sourcedPart  = null;
+    Integer            index;
 
     public ModifyPartsController( InHouse ihPart, Outsourced osPart, Integer index )
     {
@@ -83,7 +83,6 @@ public class ModifyPartsController
 
     public void savePart( ActionEvent event )
     {
-        System.out.println("Pressed");
         try
         {
             if( name.getText().isEmpty() )
@@ -117,29 +116,46 @@ public class ModifyPartsController
             {
                 RadioButton selected = (RadioButton) inventory_sourced.getSelectedToggle();
                 Part newPart;
-
-                if( selected.getId().equals("inHouse") )
+                ErrorService.print("pass");
+                Integer id;
+                
+                if( housePart != null )
                 {
-                    newPart = new InHouse( Inventory.getProductNextId(),
-                            name.getText(),
-                            Double.parseDouble(price.getText()),
-                            Integer.parseInt(inventoryLevel.getText()),
-                            Integer.parseInt(min.getText()),
-                            Integer.parseInt(max.getText()) );
+                    id = housePart.getId();
                 }
                 else
                 {
-                    newPart = new Outsourced( Inventory.getProductNextId(),
-                            name.getText(),
-                            Double.parseDouble(price.getText()),
-                            Integer.parseInt(inventoryLevel.getText()),
-                            Integer.parseInt(min.getText()),
-                            Integer.parseInt(max.getText()) );
+                    id = sourcedPart.getId();
+                }
+                
+                if( selected.getId().equals("inHouse") )
+                {
+                    InHouse housed = new InHouse( id,
+                                            name.getText(),
+                                            Double.parseDouble(price.getText()),
+                                            Integer.parseInt(inventoryLevel.getText()),
+                                            Integer.parseInt(min.getText()),
+                                            Integer.parseInt(max.getText()) );
+                    housed.setMachineId(Integer.parseInt(machineId.getText()));
+                    
+                    newPart = housed;
+                }
+                else
+                {
+                    Outsourced sourced = new Outsourced( id,
+                                                name.getText(),
+                                                Double.parseDouble(price.getText()),
+                                                Integer.parseInt(inventoryLevel.getText()),
+                                                Integer.parseInt(min.getText()),
+                                                Integer.parseInt(max.getText()) );
+                    
+                    sourced.setCompanyName(companyName.getText());
+                    
+                    newPart = sourced;
                 }
 
                 Inventory.updatePart(index, newPart);
-                //addProductToScreen( newProduct );
-                System.out.println("Product Added");
+                
                 MainSceneController.resetMainScene();
                 showMainScene( new ActionEvent() );
             }
@@ -151,6 +167,7 @@ public class ModifyPartsController
         catch( Exception e )
         {
             System.out.println("HERE");
+            ErrorService.printStacktrace(e);
             ErrorService.openErrorScene("Exception: " + e.getMessage());
         }
     }
@@ -160,9 +177,6 @@ public class ModifyPartsController
         try
         {
             RadioButton selected = (RadioButton) inventory_sourced.getSelectedToggle();
-
-            System.out.println("Button: " + selected.getId());
-
 
             if( selected.getId().equals("inHouse") )
             {
@@ -184,39 +198,46 @@ public class ModifyPartsController
             ErrorService.openErrorScene("Exception: " + e.getMessage());
         }
     }
-
-
+    
+    
     public void restrictTextfieldToNumber( KeyEvent event )
     {
         String returnText = "";
-
+        
         try
         {
             TextField tf          = (TextField) event.getSource();
             String    newText     = event.getCode().getName();
             String    currentText = tf.getText();
-
+            
             if( !newText.isEmpty() )
             {
                 if( newText.contains("Numpad") )
                 {
                     newText = newText.replace("Numpad ", "");
                 }
-                System.out.println("New Text: " + newText);
+
                 if( newText.matches("[0-9]*") )
                 {
                     returnText = currentText;
                 }
                 else if( newText.toLowerCase().contains("backspace") )
                 {
-                    returnText = currentText.substring(0, currentText.length() );
+                    returnText = currentText.substring(0, currentText.length()-1 );
+                }
+                else if( newText.toLowerCase().contains("tab") )
+                {
+                    returnText = currentText;
                 }
                 else
                 {
                     returnText = "";
                 }
-                System.out.println("ReturnText: " + returnText);
+
                 tf.setText(returnText);
+                
+                if( tf.getText().length() > 0 )
+                    tf.positionCaret(returnText.length());
             }
         }
         catch( Exception e )
@@ -224,16 +245,16 @@ public class ModifyPartsController
             ErrorService.openErrorScene("Exception: " + e.getMessage());
         }
     }
-
-
-
+    
+    
+    
     public void clearText( KeyEvent event )
     {
         try
         {
             TextField tf = (TextField)event.getSource();
             String text = tf.getText();
-
+            
             if( !text.matches("[0-9]*") )
             {
                 tf.clear();

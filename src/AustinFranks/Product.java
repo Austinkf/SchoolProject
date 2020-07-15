@@ -1,15 +1,12 @@
 package AustinFranks;
 
 import AustinFranks.Part;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Product
 {
-    private ObservableList<Part> associatedParts;
+    private ObservableList<Part> associatedParts = FXCollections.observableArrayList();
     private int    id;
     private String name;
     private double price;
@@ -84,7 +81,12 @@ public class Product
     
     public int getMax()
     {
-        return this.min;
+        return this.max;
+    }
+    
+    public double getPrice()
+    {
+        return this.price;
     }
     
     public void addAssociatedPart( Part part )
@@ -103,18 +105,7 @@ public class Product
         {
             if( associatedParts != null && associatedParts.size() > 0 )
             {
-                Map<Integer,Part> partMap = new HashMap<Integer,Part>();
-                
-                for ( Part p : associatedParts )
-                {
-                    if( part.getId() != p.getId() )
-                    {
-                        partMap.put(p.getId(),p);
-                    }
-                }
-                
-                associatedParts = (ObservableList<Part>) new ArrayList<Part>(partMap.values());
-                isDeleted = true;
+                associatedParts.remove(part);
             }
         }
         catch( Exception e )
